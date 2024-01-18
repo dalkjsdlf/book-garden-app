@@ -12,11 +12,13 @@ export class TypeOrmConfigProvider implements TypeOrmOptionsFactory{
         const dbConfig = this.configService.get('db');
 
         console.log(dbConfig); 
-        this.logger.debug(`dbConfig type     [${dbConfig.type}]`)
-        this.logger.debug(`dbConfig host     [${dbConfig.host}]`)
-        this.logger.debug(`dbConfig port     [${dbConfig.port}]`)
-        this.logger.debug(`dbConfig database [${dbConfig.database}]`)
- 
+        this.logger.debug(`dbConfig type        [${dbConfig.type}       ]`);
+        this.logger.debug(`dbConfig host        [${dbConfig.host}       ]`);
+        this.logger.debug(`dbConfig port        [${dbConfig.port}       ]`);
+        this.logger.debug(`dbConfig database    [${dbConfig.database}   ]`);
+        this.logger.debug(`dbConfig logging    [${dbConfig.logging}   ]`);
+        this.logger.debug(`dbConfig synchronize [${dbConfig.synchronize}]`);
+         
         return {
             type : dbConfig.type,
             host : process.env.RDS_HOSTNAME     || dbConfig.host,
@@ -24,7 +26,8 @@ export class TypeOrmConfigProvider implements TypeOrmOptionsFactory{
             username : process.env.RDS_USERNAME || dbConfig.username,
             password : process.env.RDS_PASSWORD || dbConfig.password,
             database : process.env.RDS_DB_NAME  || dbConfig.database,
-            entities : [__dirname + '/../**/*.entity.{js,ts}'],
+            entities : [__dirname + '/../../**/*.entity.{js,ts}'],
+            logging: process.env.RDS_LOGGING || dbConfig.logging,
             synchronize: dbConfig.synchronize
           };
     }

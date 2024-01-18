@@ -10,7 +10,7 @@ export class User extends AuditingEntity{
     @Column({length:200, nullable: false})
     email : string;
     
-    @Column({length:50, nullable: false})
+    @Column({length:200, nullable: false})
     password : string;
     
     @Column({length:100, nullable: false})

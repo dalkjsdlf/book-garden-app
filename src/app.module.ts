@@ -10,9 +10,11 @@ import { TypeOrmConfigProvider } from './common/config/typeorm.config.provider';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import config from './common/config/config';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [UserModule, 
+            AuthModule,
             BookCardModule, 
             BookModule, 
             PhraiseModule, 

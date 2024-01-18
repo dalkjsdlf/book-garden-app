@@ -6,6 +6,7 @@ import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { SysConst } from 'src/common/const/system.const';
 import { User } from '../user/entities/user.entity';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -18,11 +19,11 @@ export class AuthService {
     }
     
     //signup
-    async signUp(authCredentialDto : AuthCredentialDto) : Promise<void> {
-        console.log("signUp Service ", authCredentialDto);
-        console.log("signUp Controller ", authCredentialDto);
+    async signUp(createUserDto : CreateUserDto) : Promise<void> {
+        console.log("signUp Service ", createUserDto);
+        console.log("signUp Controller ", createUserDto);
         //Dto Destructuring
-        const {userId, password} = authCredentialDto;
+        const {userId, name, email, password} = createUserDto;
 
         const salt = await bcrypt.genSalt();
         const hashedPassowrd = await bcrypt.hash(password, salt);
@@ -30,6 +31,8 @@ export class AuthService {
         //입력할 User객체 생성
         const user : User          = this.userRepository.create({
                                         userId,
+                                        name,
+                                        email,
                                         password : hashedPassowrd
                                      });
 
@@ -37,9 +40,10 @@ export class AuthService {
             //DB에 저장                             
             await this.userRepository.save(user);
         }catch(error){
-            console.log(`err code ${error.code}`);
+            console.log(`err code : [${error.code}]`);
+            console.log(`err code : [${error.message}]`);
             if(error.code === SysConst.SQL_DUP_CODE ){
-                throw new ConflictException(`username [${user.userId}] already exists`);
+                throw new ConflictException(`userId [${user.userId}] already exists`);
             }else{
                 throw new InternalServerErrorException();
             }

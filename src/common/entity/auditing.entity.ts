@@ -1,6 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, UpdateDateColumn } from "typeorm";
 
-@Entity()
 export class AuditingEntity extends BaseEntity{
 
     @CreateDateColumn()
