@@ -6,6 +6,7 @@ export class CurrentUserService {
     private userId : string;
     constructor(@Inject(REQUEST) private request: any) {}
     
+    
     setUserId(userId : string){
         this.userId = userId;
     }
