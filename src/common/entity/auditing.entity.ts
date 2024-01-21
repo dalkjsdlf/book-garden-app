@@ -1,16 +1,16 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, UpdateDateColumn } from "typeorm";
 
-export class AuditingEntity extends BaseEntity{
+export abstract class AuditingEntity extends BaseEntity{
 
     @CreateDateColumn()
-    createdDate : string
+    createAt : string
     
     @Column({default: 'anonymous'})
-    createdUserId : string
+    createdBy : string
 
     @UpdateDateColumn()
-    modifyDate : string
+    updateAt : string
     
     @Column({default: 'anonymous'})
-    modifyUserId : string
+    updateBy : string
 }

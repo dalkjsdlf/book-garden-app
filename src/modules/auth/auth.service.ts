@@ -20,8 +20,7 @@ export class AuthService {
     
     //signup
     async signUp(createUserDto : CreateUserDto) : Promise<void> {
-        console.log("signUp Service ", createUserDto);
-        console.log("signUp Controller ", createUserDto);
+     
         //Dto Destructuring
         const {userId, name, email, password} = createUserDto;
 
