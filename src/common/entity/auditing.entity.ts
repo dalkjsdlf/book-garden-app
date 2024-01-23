@@ -9,8 +9,8 @@ export abstract class AuditingEntity extends BaseEntity{
     createdBy : string
 
     @UpdateDateColumn()
-    updateAt : string
+    updatedAt : string
     
     @Column({default: 'anonymous'})
-    updateBy : string
+    updatedBy : string
 }

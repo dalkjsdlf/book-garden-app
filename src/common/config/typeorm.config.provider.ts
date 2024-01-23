@@ -19,14 +19,15 @@ export class TypeOrmConfigProvider implements TypeOrmOptionsFactory{
         this.logger.debug(`dbConfig logging    [${dbConfig.logging}   ]`);
         this.logger.debug(`dbConfig synchronize [${dbConfig.synchronize}]`);
          
+        this.logger.debug(`--dirname [${__dirname}]`)
         return {
-            type : dbConfig.type,
-            host : process.env.RDS_HOSTNAME     || dbConfig.host,
-            port : process.env.RDS_PORT         || dbConfig.port,
-            username : process.env.RDS_USERNAME || dbConfig.username,
-            password : process.env.RDS_PASSWORD || dbConfig.password,
-            database : process.env.RDS_DB_NAME  || dbConfig.database,
-            entities : [__dirname + '/../../**/*.entity.{js,ts}'],
+            type        : dbConfig.type,
+            host        : process.env.RDS_HOSTNAME     || dbConfig.host,
+            port        : process.env.RDS_PORT         || dbConfig.port,
+            username    : process.env.RDS_USERNAME     || dbConfig.username,
+            password    : process.env.RDS_PASSWORD     || dbConfig.password,
+            database    : process.env.RDS_DB_NAME      || dbConfig.database,
+            entities    : [__dirname + '/../../**/*.entity.{js,ts}'], 
             logging: process.env.RDS_LOGGING || dbConfig.logging,
             synchronize: dbConfig.synchronize
           };

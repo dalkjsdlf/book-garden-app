@@ -11,6 +11,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import config from './common/config/config';
 import { AuthModule } from './modules/auth/auth.module';
+import { EntitySubscriber } from './common/subscriber/entity.subscriber';
+import { RequestContextModule } from 'nestjs-request-context';
 
 @Module({
   imports: [UserModule, 
@@ -25,8 +27,10 @@ import { AuthModule } from './modules/auth/auth.module';
             ConfigModule.forRoot({
               isGlobal: true,
               load:[config]
-            }),],
+            }),
+            RequestContextModule
+          ],
   controllers: [],
-  providers: [],
+  providers: [EntitySubscriber],
 })
 export class AppModule {}

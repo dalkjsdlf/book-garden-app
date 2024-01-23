@@ -5,7 +5,7 @@ import { Strategy, ExtractJwt } from "passport-jwt";
 import { User } from "../../modules/user/entities/user.entity";
 import { Repository } from "typeorm";
 import { ConfigService } from "@nestjs/config";
-import { CurrentUserService } from "../entity/current-user.service";
+import { RequestContext } from "nestjs-request-context";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy){
@@ -14,7 +14,6 @@ export class JwtStrategy extends PassportStrategy(Strategy){
         @InjectRepository(User)
         private userRepository : Repository<User>,
         private configService : ConfigService,
-        private currentUserService : CurrentUserService
         ){
             const logger = new Logger();
             logger.debug(`config service jwt secret[${configService.get('jwt.secret')}]`);
@@ -35,7 +34,7 @@ export class JwtStrategy extends PassportStrategy(Strategy){
             throw new UnauthorizedException(`[${userId}]은 인가되지 않은 사용자 입니다.`);
         }
         
-        this.currentUserService.setUserId(userId);
+        RequestContext.currentContext.req.userId = userId;
         return user;
     }
 

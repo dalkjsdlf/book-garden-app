@@ -7,6 +7,8 @@ import { JwtService } from '@nestjs/jwt';
 import { SysConst } from 'src/common/const/system.const';
 import { User } from '../user/entities/user.entity';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { RequestContext } from 'nestjs-request-context';
+import { UserRequestContext } from 'src/common/http/user-request.context';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +28,8 @@ export class AuthService {
 
         const salt = await bcrypt.genSalt();
         const hashedPassowrd = await bcrypt.hash(password, salt);
+
+        RequestContext.currentContext.req.userId = userId;
 
         //입력할 User객체 생성
         const user : User          = this.userRepository.create({
