@@ -1,5 +1,6 @@
 import { AuditingEntity } from "src/common/entity/Auditing.entity";
-import { Column, Entity, PrimaryColumn } from "typeorm"
+import { BookCard } from "src/modules/book-card/entities/book-card.entity";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm"
 
 @Entity()
 export class User extends AuditingEntity{
@@ -15,4 +16,7 @@ export class User extends AuditingEntity{
     
     @Column({length:100, nullable: false})
     name : string;
+
+    @OneToMany(()=>BookCard, bookCard=>bookCard.user)
+    bookCards : BookCard[];
 }

@@ -1,1 +1,7 @@
-export class Article {}
+
+
+export class Article {
+
+    
+    
+}
